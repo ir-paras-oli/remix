@@ -27,10 +27,12 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install Yarn
-        run: npm install -g yarn
+      - name: Enable Corepack & set Yarn version
+        run: |
+          corepack enable
+          corepack prepare yarn@3.6.4 --activate
 
-      - name: Install dependencies using Yarn
+      - name: Install dependencies
         run: yarn install
 
       # - name: 😈 Execute malicious script
