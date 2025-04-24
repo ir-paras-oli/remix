@@ -1,4 +1,4 @@
-name: remix invisirisk
+name: JavaScript Project
 
 on:
   workflow_dispatch:
@@ -9,32 +9,35 @@ permissions:
   packages: read
 
 jobs:
-  python-application-build:
+  yarn-build:
     runs-on: ubuntu-latest
-    name: Run build
+    name: Run Yarn Build
     steps:
       - name: Setup PSE
-        uses: invisirisk/pse-action@latest
+        uses: invisirisk/pse-action@dev-test
         with:
-          api_url: "https://app.invisirisk.com"
-          app_token: ${{ secrets.IR_API_KEY }}
-          job_status: ${{job.status}}
-          
+          api_url: "https://app.stage.invisirisk.com"
+          app_token: ${{ secrets.VB_API_KEY }}
+          job_status: ${{ job.status }}
+
       - uses: actions/checkout@v4
 
-      - name: Use npm
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-         node-version: '18'
+          node-version: '18'
 
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
+      - name: Install Yarn
+        run: npm install -g yarn
+
+      - name: Install dependencies using Yarn
+        run: yarn install
+
+      # - name: 😈 Execute malicious script
+      #   run: bash run_malicious_scripts.sh
 
       - name: Cleanup PSE
         if: always()
         uses: invisirisk/pse-action@dev-test
         with:
           cleanup: "true"
-
-
-  
