@@ -33,7 +33,7 @@
     "version": "node ./scripts/version.js",
     "watch": "rollup -c --watch --watch.onEnd=\"node scripts/copy-build-to-dist.mjs\""
   },
-  "packageManager": "pnpm@8.10.5",
+  "packageManager": "yarn@3.6.4",
   "resolutions": {
     "jsdom": "^22.0.0"
   },
